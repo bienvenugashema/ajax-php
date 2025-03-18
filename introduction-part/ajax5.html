@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">Get data</button>
+    <div id="data"></div>
+
+    <script>
+        document.getElementById("btn").addEventListener("click", getUsers)
+
+        function getUsers(e){
+            e.preventDefault()
+
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET",'users.php',true)
+            xhr.onload = function(){
+                if(this.status == 200){
+                    console.log(this.responseText)
+                }
+            }
+
+            xhr.send()
+        }
+    </script>
+</body>
+</html>

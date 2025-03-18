@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn1">Get user</button>
+    <button id="btn2">Get users</button>
+
+    <h1>User</h1>
+    <div id="user"></div>
+
+    <h1>Users</h1>
+    <div id="users"></div>
+
+    <script>
+        document.getElementById("btn1").addEventListener("click", loaduser)
+        document.getElementById("btn2").addEventListener('click', loadusers)
+
+        function loaduser(){
+            const xhr = new XMLHttpRequest()
+            xhr.open("GET",'user.json',true)
+            xhr.onload = function(){
+                if(this.status == 200){
+                    var user = JSON.parse(this.responseText)
+                    output = ''
+
+                    output += `<ul>
+                        <li>${user.id}</li>
+                        <li>${user.name}</li>
+                        <li>${user.email}</li>
+                        <br>
+                        </ul>`
+
+                    document.getElementById("user").innerHTML = output;    
+                }
+            }
+            xhr.send()
+        }
+
+        // grab users
+
+
+        function loadusers(){
+            const xhr = new XMLHttpRequest()
+            xhr.open("GET", 'users.json', true)
+
+            xhr.onload = function(){
+                if(this.status == 200){
+                    output = ""
+                    var users = JSON.parse(this.responseText)
+
+                    for (i in users) {
+                        output += `<ul>
+                            <li>ID:${users[i].id}</li>
+                            <li>ID:${users[i].name}</li>
+                            <li>ID:${users[i].email}</li>
+                            <br>
+                            </ul>`
+                    }
+                    document.getElementById("users").innerHTML = output
+                }
+            }
+            xhr.send()
+        }
+
+    </script>
+</body>
+</html>

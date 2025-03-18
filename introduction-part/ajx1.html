@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">Senf txt</button>
+
+    <div id="text"></div>
+
+    <script>
+        document.getElementById("btn").addEventListener("click", e=>{
+            //create xhr 
+            const xhr = new XMLHttpRequest()
+
+            //for loaders
+
+            xhr.onprogress = function(){
+                console.log("Progressing")
+            }
+            //open - type, url/filename, asyc(true or false)
+            xhr.open('GET','sample.txt', true)
+
+            xhr.onload = function(){
+                if(this.status == 200){
+                    // console.log(this.responseText)
+
+                    document.getElementById("text").innerHTML=this.responseText
+                }
+            }
+            //send request
+            xhr.send()
+        })
+    </script>
+</body>
+</html>

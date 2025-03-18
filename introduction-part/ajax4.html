@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">Get data</button>
+    <form action="process.php">
+        <input type="text" name="name">
+        <input type="submit" value="submit">
+    </form>
+
+    <h1>AJAX GET REQUEST</h1>
+    <form id="getSubmit">
+        <input type="text" name="name" id="name1">
+        <input type="submit" value="submit">
+    </form>
+
+    <h1>AJAX POST</h1>
+    <form id="postSubmit">
+        <input type="text" name="name" id="name2">
+        <input type="submit" value="submit">
+    </form>
+    <script>
+        document.getElementById("btn").addEventListener("click", loadphp)
+        document.getElementById("getSubmit").addEventListener("submit", getSubmit)
+        document.getElementById("postSubmit").addEventListener("submit", postSubmit)
+
+        function postSubmit(e){
+            e.preventDefault()
+
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", 'process.php', true)
+            xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded")
+            var nme = document.getElementById("name2").value
+            parms = `name=${nme}`
+
+            xhr.onload  = function(){
+                if(this.status == 200){
+                    console.log(this.responseText)
+                }
+            }
+
+            xhr.send(parms)
+        }
+
+        function loadphp(){
+            const xhr = new XMLHttpRequest()
+            xhr.open("GET", "process.php", true)
+
+            xhr.onload = function() {
+                if(this.status == 200){
+                    console.log(this.responseText)
+                }
+            }
+
+            xhr.send()
+        }
+//by using ajax get method
+        function getSubmit(e){
+            e.preventDefault()
+
+            const xhr = new XMLHttpRequest()
+            var name = document.getElementById("name1").value
+            xhr.open("GET",`process.php?name=${name}`,true);
+
+            xhr.onload = function(){
+                if(this.status == 200){
+                    console.log(this.responseText)
+                }
+            }
+            xhr.send()
+        }
+    </script>
+</body>
+</html>
